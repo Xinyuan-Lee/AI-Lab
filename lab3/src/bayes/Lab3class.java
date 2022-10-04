@@ -8,32 +8,38 @@ import java.util.*;
 public class Lab3class {
 
 	public static void main(String[] args)  {
-		ArrayList<String> arrayList = new ArrayList<>();//ÈËÃûÁĞ±í
-		ArrayList<String> arrayList2 = new ArrayList<>();//ÎÊÌâÁĞ±í
+		//arrayList: a string list to contain names
+		ArrayList<String> arrayList = new ArrayList<>();//äººååˆ—è¡¨
+		//arraylist2: a string list to contain variales
+		ArrayList<String> arrayList2 = new ArrayList<>();//é—®é¢˜åˆ—è¡¨
+		//P: a double[] list
 		double [] P;
+		// f1,f2 are two files to get network and queries
 		File f1,f2;
-		System.out.println("ÇëÊäÈëÎÄ¼şÃû³Æ\n");
+		System.out.println("è¯·è¾“å…¥æ–‡ä»¶åç§°\n");
 		f1 = new File("carnetwork.txt");
-        f2 = new File("carqueries.txt");
-        Note cpt = geteverycpt(f1,arrayList);
-        arrayList2 = getquestion(f2);
-        double[] pro;//´æÈ«¸ÅÂÊ
-        pro = allpro(cpt);
-//        for(int i = 0;i < Math.pow(2, cpt.count);i++){
-//        	System.out.println(pro[i]);
-//        }
-        for(int i=0;i < arrayList2.size();i++){
-        	P=getPT(arrayList2.get(i), cpt,arrayList,pro);
-        	System.out.println("P("+arrayList2.get(i)+") = \n : "+P[0]+" : "+P[1]);
-        }
-	}
+        	f2 = new File("carqueries.txt");
+		/*define a Node cpt
+		*/
+        	Note cpt = geteverycpt(f1,arrayList);
+        	arrayList2 = getquestion(f2);
+        	double[] pro;//å­˜å…¨æ¦‚ç‡
+        	pro = allpro(cpt);
+		//for(int i = 0;i < Math.pow(2, cpt.count);i++){
+	  	//System.out.println(pro[i]);
+	        //}
+		for(int i=0;i < arrayList2.size();i++){
+			P=getPT(arrayList2.get(i), cpt,arrayList,pro);
+			System.out.println("P("+arrayList2.get(i)+") = \n : "+P[0]+" : "+P[1]);
+		}
+		}
 	/*
-	 *²éÑ¯¸ÅÂÊ²¢Êä³ö
+	 *æŸ¥è¯¢æ¦‚ç‡å¹¶è¾“å‡º
 	 */
 	public static double[] getPT(String question,Note cpt,ArrayList<String> arrayList,double[] pro){
 		String[] strings=question.split(" \\| ");
 		double[] answer=new double[2];
-		int count=arrayList.indexOf(strings[0]);//Ç°ÃæµÄNoteĞòºÅ
+		int count=arrayList.indexOf(strings[0]);//å‰é¢çš„Noteåºå·
 		if(cpt.q[count]==0){
 			answer[0]=cpt.t[0][0][count];
 			answer[1]=cpt.t[0][1][count];
@@ -42,8 +48,8 @@ public class Lab3class {
 			String[] strings2=strings[1].split(", ");
 			String[] strings3;
 			int sum=0;
-			int[] count2=new int[strings2.length];//Ìõ¼şNoteĞòºÅ
-			int [] TF=new int[strings2.length];//´æ´¢ÊÇt»¹ÊÇf
+			int[] count2=new int[strings2.length];//æ¡ä»¶Noteåºå·
+			int [] TF=new int[strings2.length];//å­˜å‚¨æ˜¯tè¿˜æ˜¯f
 			for(int i=0;i<strings2.length;i++){
 				strings3=strings2[i].split("=");
 				count2[i]=arrayList.indexOf(strings3[0]);
@@ -63,7 +69,7 @@ public class Lab3class {
 			return answer;
 	}
     /*
-     * ´¦ÀíÎÊÌâÎÄ±¾²¢·µ»ØÎÊÌâ
+     * å¤„ç†é—®é¢˜æ–‡æœ¬å¹¶è¿”å›é—®é¢˜
      */
 	public static ArrayList<String> getquestion(File file){
 		ArrayList<String> arrayList=new ArrayList<>();
@@ -82,37 +88,37 @@ public class Lab3class {
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			System.out.println("Î´ÕÒµ½ÎÄ¼ş£¡\n");
+			System.out.println("æœªæ‰¾åˆ°æ–‡ä»¶ï¼\n");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			System.out.println("read²»ÁË\n");
+			System.out.println("readä¸äº†\n");
 		}
 		 
     	 return arrayList;
      }
      /*
-      * ´¦Àí±´Ò¶Ë¹ÍøÂçÎÄ±¾²¢·µ»Ø¸ÅÂÊ±í
+      * å¤„ç†è´å¶æ–¯ç½‘ç»œæ–‡æœ¬å¹¶è¿”å›æ¦‚ç‡è¡¨
       */
 	public static Note  geteverycpt(File file,ArrayList<String> arrayList){
-    	 int count;//±äÁ¿¸öÊı
+    	 int count;//å˜é‡ä¸ªæ•°
     	 Note xinxi=new Note();
     	 BufferedReader bfr1;
     	  try {
-    		//¶ÁÈ¡±äÁ¿¸öÊı
+    		//è¯»å–å˜é‡ä¸ªæ•°
   			bfr1=new BufferedReader(new FileReader(file));
   			count=Integer.valueOf(bfr1.readLine());
   			xinxi.count=count;
   			bfr1.readLine();
-  			//¶ÁÈ¡Ëæ»úÊÂ¼şµÄÃû×Ö
+  			//è¯»å–éšæœºäº‹ä»¶çš„åå­—
   			String[] strings=bfr1.readLine().split(" ");
   			for(int i=0;i<strings.length;i++){
   				arrayList.add(strings[i]);
   			}
   			bfr1.readLine();
-  			//¶ÁÈ¡±äÁ¿¹ØÏµ±í
-  			xinxi.q=new int[count];//´æ¸¸½Úµã¸öÊı
-  			xinxi. p=new int [count][count];//´æ½Úµã¹ØÏµ
-  			xinxi.t=new double[(int)Math.pow(2,( count-1))][2][count];//´æcpt oÁĞÎª¼Ù 1ÁĞÎªÕæ
+  			//è¯»å–å˜é‡å…³ç³»è¡¨
+  			xinxi.q=new int[count];//å­˜çˆ¶èŠ‚ç‚¹ä¸ªæ•°
+  			xinxi. p=new int [count][count];//å­˜èŠ‚ç‚¹å…³ç³»
+  			xinxi.t=new double[(int)Math.pow(2,( count-1))][2][count];//å­˜cpt oåˆ—ä¸ºå‡ 1åˆ—ä¸ºçœŸ
   			for(int i=0;i<5;i++){
   				xinxi.arrayList.add(null);
   			}
@@ -136,7 +142,7 @@ public class Lab3class {
   					}
   				}
   			}
-  			//¶ÁÈ¡CPT
+  			//è¯»å–CPT
   			for(int i=0;i<count;i++){
   	  			bfr1.readLine();
   				for(int j=0;j<=((int)Math.pow(2,( xinxi.q[i]))-1);j++){
@@ -149,16 +155,16 @@ public class Lab3class {
   			bfr1.close();
   			return xinxi;
   		} catch (FileNotFoundException e) {
-  			System.out.println("Î´ÕÒµ½ÎÄ¼ş£¡\n");
+  			System.out.println("æœªæ‰¾åˆ°æ–‡ä»¶ï¼\n");
   		} catch (NumberFormatException e) {
-  			System.out.println("Êı¸ñÊ½²»¶Ô\n");
+  			System.out.println("æ•°æ ¼å¼ä¸å¯¹\n");
   		} catch (IOException e) {
   			e.printStackTrace();
   		}
     	 return null;
      }
 /*
- * ¼ÆËãËùÓĞµÄÈ«¸ÅÂÊ,rÈÏÎªµÚÒ»¸ö½ÚµãÎª×î¸ßÎ»
+ * è®¡ç®—æ‰€æœ‰çš„å…¨æ¦‚ç‡,rè®¤ä¸ºç¬¬ä¸€ä¸ªèŠ‚ç‚¹ä¸ºæœ€é«˜ä½
  */
 public static double[]  allpro(Note cpt){
 	int sum = (int)Math.pow(2, cpt.count);
@@ -174,7 +180,7 @@ public static double[]  allpro(Note cpt){
 			shu[cs.length-1-j] -= 48;
 		}
 		for(int j = 0;j < cpt.count;j++){
-			if(j == 0){//µÚÒ»¸öĞèÒªÊ¹ÓÃ¼Ó·¨
+			if(j == 0){//ç¬¬ä¸€ä¸ªéœ€è¦ä½¿ç”¨åŠ æ³•
 				if(cpt.q[j]==0){
 					pro[i] = cpt.t[0][shu[cpt.count-1]][j];
 				}
@@ -182,7 +188,7 @@ public static double[]  allpro(Note cpt){
 					pro[i] = cpt.t[pos(cpt, shu,j)][shu[cpt.count-1]][j];
 				}
 			}
-			else{//ÒÔºóµÄÊ¹ÓÃ³Ë·¨
+			else{//ä»¥åçš„ä½¿ç”¨ä¹˜æ³•
 				if(cpt.q[j]==0){
 					pro[i]=pro[i]*cpt.t[0][shu[cpt.count-1-j]][j];
 					}
@@ -195,7 +201,7 @@ public static double[]  allpro(Note cpt){
 	return pro;
 }
 /*
-* ¼ÆËãÔÚ¶ÔÓ¦cpt±íÖĞÎ»ÖÃ
+* è®¡ç®—åœ¨å¯¹åº”cptè¡¨ä¸­ä½ç½®
 */
 public static int  pos(Note cpt,int[] shu,int j){
 	int post=0;
@@ -217,12 +223,12 @@ public static int  pos(Note cpt,int[] shu,int j){
 	return post;
 }
 /*
- * ¼ÆËã¸ÅÂÊ
+ * è®¡ç®—æ¦‚ç‡
  */
 public static double[]  compute(double[] pro ,int[] count2,int[] TF,int count,Note cpt){
-	int[] cs=new int[cpt.count];//Êı¾İ
+	int[] cs=new int[cpt.count];//æ•°æ®
 	double sum[]=new double[2];
-	int[] shuju=new int[cpt.count-count2.length];//Î´±»È·¶¨µÄÊı¾İ
+	int[] shuju=new int[cpt.count-count2.length];//æœªè¢«ç¡®å®šçš„æ•°æ®
 	for(int i=0;i<count2.length;i++){
 		cs[cpt.count-1-count2[i]]=TF[i];
 	}
@@ -251,10 +257,10 @@ public static double[]  compute(double[] pro ,int[] count2,int[] TF,int count,No
             }
 		}
 		for(int i=0;i<Math.pow(2,cpt.count-count2.length );i++){
-			String string=Integer.toBinaryString(i);//»¯Îª¶ş½øÖÆ
+			String string=Integer.toBinaryString(i);//åŒ–ä¸ºäºŒè¿›åˆ¶
 			char[] cs2=string.toCharArray();
 			int sum2=0;
-			int[] shuju2=new int[cpt.count-count2.length];//·Å¶ş½øÖÆµÄ
+			int[] shuju2=new int[cpt.count-count2.length];//æ”¾äºŒè¿›åˆ¶çš„
 			for(int j=0;j<string.length();j++){
 				shuju2[string.length()-1-j]=cs2[j];
 				shuju2[string.length()-1-j]-=48;
@@ -282,10 +288,10 @@ public static double[]  compute(double[] pro ,int[] count2,int[] TF,int count,No
             }
 		}
 		for(int i=0;i<Math.pow(2,cpt.count-count2.length -1);i++){
-			String string=Integer.toBinaryString(i);//»¯Îª¶ş½øÖÆ
+			String string=Integer.toBinaryString(i);//åŒ–ä¸ºäºŒè¿›åˆ¶
 			char[] cs2=string.toCharArray();
 			int sum2=0;
-			int[] shuju2=new int[cpt.count-count2.length-1];//·Å¶ş½øÖÆµÄ
+			int[] shuju2=new int[cpt.count-count2.length-1];//æ”¾äºŒè¿›åˆ¶çš„
 			for(int j=0;j<string.length();j++){
 				shuju2[string.length()-1-j]=cs2[j];
 				shuju2[string.length()-1-j]-=48;
